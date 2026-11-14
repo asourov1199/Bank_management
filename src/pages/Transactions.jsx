@@ -1,31 +1,4 @@
-import { useBank } from "../context/BankContext";
-import TransactionList from "../components/TransactionList";
-export default function Transactions() {
-  const { transactions } = useBank();
-  return (
-    <>
-      <div className="page-heading">
-        <div>
-          <p className="eyebrow">THE FULL PICTURE</p>
-          <h1>
-            Transaction history<span>.</span>
-          </h1>
-          <p>Every deposit and withdrawal, newest first.</p>
-        </div>
-        <span className="pill">
-          {transactions.length} transaction
-          {transactions.length === 1 ? "" : "s"}
-        </span>
-      </div>
-      <section className="panel">
-        <div className="section-heading">
-          <div>
-            <h2>All activity</h2>
-            <p>Dates and times use your device's local time zone.</p>
-          </div>
-        </div>
-        <TransactionList transactions={transactions} />
-      </section>
-    </>
-  );
-}
+import { History } from 'lucide-react';
+import TransactionList from '../components/TransactionList';
+import { useBank } from '../context/BankContext';
+export default function Transactions() { const { transactions } = useBank(); return <><div className="page-heading"><div><span className="eyebrow">ACCOUNT ACTIVITY</span><h1>Transaction history</h1><p>A record of all your deposits and withdrawals.</p></div><span className="date-pill">{transactions.length} transactions</span></div><section className="panel history-panel"><div className="section-heading"><h2><History size={20}/> All transactions</h2></div><TransactionList transactions={transactions}/></section></>; }

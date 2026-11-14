@@ -1,21 +1,6 @@
-import TransactionItem from "./TransactionItem";
+import { ReceiptText } from 'lucide-react';
+import TransactionItem from './TransactionItem';
 export default function TransactionList({ transactions }) {
-  if (!transactions.length)
-    return (
-      <div className="empty-state">
-        <span aria-hidden="true">↔</span>
-        <h3>A fresh start</h3>
-        <p>
-          Your transactions will appear here after your first deposit or
-          withdrawal.
-        </p>
-      </div>
-    );
-  return (
-    <ul className="transaction-list">
-      {transactions.map((transaction) => (
-        <TransactionItem key={transaction.id} transaction={transaction} />
-      ))}
-    </ul>
-  );
+  if (!transactions.length) return <div className="empty"><ReceiptText size={30}/><strong>No transactions yet</strong><p>Your deposits and withdrawals will appear here.</p></div>;
+  return <ul className="transaction-list">{transactions.map(item => <TransactionItem key={item.id} transaction={item}/>)}</ul>;
 }

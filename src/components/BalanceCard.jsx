@@ -1,15 +1,4 @@
-import { formatMoney } from "../utils/banking";
-export default function BalanceCard({ label, amount, variant = "", caption }) {
-  return (
-    <article className={`balance-card ${variant}`}>
-      <p>
-        {label}
-        <span aria-hidden="true">
-          {variant === "primary" ? "◈" : variant === "deposit" ? "↙" : "↗"}
-        </span>
-      </p>
-      <h2>{formatMoney(amount)}</h2>
-      <small>{caption}</small>
-    </article>
-  );
+import { formatMoney } from '../utils/format';
+export default function BalanceCard({ label, amount, icon: Icon, variant = '' }) {
+  return <div className={`stat-card ${variant}`}><div className="stat-top"><span>{label}</span><span className="stat-icon"><Icon size={20}/></span></div><strong>{formatMoney(amount)}</strong><small>{variant === 'balance' ? 'Available to use' : 'Since account opened'}</small></div>;
 }

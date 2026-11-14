@@ -1,4 +1,2 @@
-import MoneyForm from "./MoneyForm";
-export default function WithdrawForm(props) {
-  return <MoneyForm type="withdrawal" {...props} />;
-}
+import MoneyForm from './MoneyForm';
+export default function WithdrawForm() { return <MoneyForm type="withdrawal"/>; }

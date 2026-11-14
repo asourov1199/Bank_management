@@ -1,81 +1,9 @@
-import { Link } from "react-router-dom";
-import { useBank } from "../context/BankContext";
-import BalanceCard from "../components/BalanceCard";
-import TransactionList from "../components/TransactionList";
+import { Link } from 'react-router-dom';
+import { Wallet, ArrowDownLeft, ArrowUpRight, ArrowRight, CreditCard } from 'lucide-react';
+import BalanceCard from '../components/BalanceCard';
+import TransactionList from '../components/TransactionList';
+import { useBank } from '../context/BankContext';
 export default function Dashboard() {
-  const { account, balance, totalDeposited, totalWithdrawn, transactions } =
-    useBank();
-  return (
-    <>
-      <div className="page-heading">
-        <div>
-          <p className="eyebrow">YOUR MONEY, AT A GLANCE</p>
-          <h1>
-            Account overview<span>.</span>
-          </h1>
-          <p>A clear view of your balance and everyday transactions.</p>
-        </div>
-        <span className="pill">
-          <span className="status-dot" /> Account active
-        </span>
-      </div>
-      <div className="balance-grid">
-        <BalanceCard
-          label="Available balance"
-          amount={balance}
-          variant="primary"
-          caption="Ready when you are"
-        />
-        <BalanceCard
-          label="Total deposited"
-          amount={totalDeposited}
-          variant="deposit"
-          caption="Money added since you started"
-        />
-        <BalanceCard
-          label="Total withdrawn"
-          amount={totalWithdrawn}
-          variant="withdrawal"
-          caption="Money withdrawn since you started"
-        />
-      </div>
-      <section className="account-panel">
-        <div>
-          <p className="eyebrow">ACCOUNT DETAILS</p>
-          <h2>{account.name}</h2>
-          <p>
-            {account.type} <span className="separator">/</span> {account.number}
-          </p>
-        </div>
-        <div className="quick-actions">
-          <Link className="button" to="/deposit">
-            Deposit money <span aria-hidden="true">↙</span>
-          </Link>
-          <Link className="button secondary" to="/withdraw">
-            Withdraw <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-      </section>
-      <section className="panel">
-        <div className="section-heading">
-          <div>
-            <h2>Recent activity</h2>
-            <p>Your latest account movements, all in one place.</p>
-          </div>
-          <Link className="text-link" to="/transactions">
-            View all <span aria-hidden="true">↗</span>
-          </Link>
-        </div>
-        <TransactionList transactions={transactions.slice(0, 5)} />
-      </section>
-      <div className="tip">
-        <span aria-hidden="true">✳</span>
-        <p>
-          <strong>Small steps. Better habits.</strong> Keep track of what comes
-          in and what goes out.
-        </p>
-        <span className="tip-label">BANK SMARTER</span>
-      </div>
-    </>
-  );
+  const { account, balance, totalDeposited, totalWithdrawn, transactions } = useBank();
+  return <><div className="page-heading"><div><span className="eyebrow">OVERVIEW</span><h1>Good to see you, {account.name.split(' ')[0]} <span className="wave">✳</span></h1><p>Here's what's happening with your account.</p></div><span className="date-pill">Personal banking</span></div><div className="stats-grid"><BalanceCard label="Available balance" amount={balance} icon={Wallet} variant="balance"/><BalanceCard label="Total deposits" amount={totalDeposited} icon={ArrowDownLeft}/><BalanceCard label="Total withdrawals" amount={totalWithdrawn} icon={ArrowUpRight}/></div><div className="dashboard-grid"><section className="panel"><div className="section-heading"><div><h2>Quick actions</h2><p>What would you like to do today?</p></div></div><div className="actions"><Link to="/deposit" className="action"><span className="action-icon incoming"><ArrowDownLeft size={23}/></span><strong>Deposit money</strong><small>Add money to your balance</small><ArrowRight className="action-arrow" size={18}/></Link><Link to="/withdraw" className="action"><span className="action-icon outgoing"><ArrowUpRight size={23}/></span><strong>Withdraw money</strong><small>Take money out securely</small><ArrowRight className="action-arrow" size={18}/></Link></div></section><section className="panel account-panel"><div className="section-heading"><h2>Account details</h2></div><div className="account-visual"><div className="account-visual-top"><span>NORTHSTAR</span><CreditCard size={26}/></div><div className="account-number">{account.number}</div><div className="account-visual-bottom"><div><small>ACCOUNT HOLDER</small><strong>{account.name.toUpperCase()}</strong></div><span>PERSONAL</span></div></div></section></div><section className="panel recent"><div className="section-heading"><div><h2>Recent activity</h2><p>Your latest account transactions</p></div><Link className="text-link" to="/transactions">View all <ArrowRight size={16}/></Link></div><TransactionList transactions={transactions.slice(0, 5)}/></section></>;
 }
